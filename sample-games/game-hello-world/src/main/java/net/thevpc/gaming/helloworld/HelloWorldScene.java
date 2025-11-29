@@ -67,7 +67,7 @@ public class HelloWorldScene {
 
         );
         scene.setSpriteView(SpriteFilter.byKind("Ball"), new ImageSpriteView("/ball.png", 8, 4));
-        scene.setSpriteView(SpriteFilter.byKind("Ball2"), new ImageSpriteView("/ball22.png", 5, 2));
+        scene.setSpriteView(SpriteFilter.byKind("Ball2"), new ImageSpriteView("/ball2.png", 5, 2));
 
     }
     @OnNextFrame
