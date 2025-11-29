@@ -1,2 +1,0 @@
-# atom
-Atom Game Engine
