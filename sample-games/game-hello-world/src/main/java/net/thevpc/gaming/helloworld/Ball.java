@@ -21,8 +21,9 @@ import net.thevpc.gaming.atom.model.Sprite;
         direction = Math.PI/4,
         speed = 0.2,
         mainTask = MoveSpriteMainTask.class,
-        collisionTask = StopSpriteCollisionTask.class
-//        collisionTask = BounceSpriteCollisionTask.class
+       // collisionTask = StopSpriteCollisionTask.class
+        //collisionTask = Ball2DefaultSpriteCollisionManager.class
+       collisionTask = BounceSpriteCollisionTask.class
 
 )
 public class Ball {

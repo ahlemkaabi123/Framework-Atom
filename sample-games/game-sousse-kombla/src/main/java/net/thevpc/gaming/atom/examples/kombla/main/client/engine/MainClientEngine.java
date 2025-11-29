@@ -6,6 +6,7 @@ package net.thevpc.gaming.atom.examples.kombla.main.client.engine;
 
 import net.thevpc.gaming.atom.examples.kombla.main.client.dal.MainClientDAO;
 import net.thevpc.gaming.atom.examples.kombla.main.client.dal.MainClientDAOListener;
+import net.thevpc.gaming.atom.examples.kombla.main.client.dal.TCPMainClientDAO;
 import net.thevpc.gaming.atom.examples.kombla.main.shared.engine.AbstractMainEngine;
 import net.thevpc.gaming.atom.examples.kombla.main.shared.model.DynamicGameModel;
 import net.thevpc.gaming.atom.examples.kombla.main.shared.model.StartGameInfo;
@@ -25,7 +26,7 @@ public class MainClientEngine extends AbstractMainEngine {
     @Override
     protected void sceneActivating() {
         //put here your MainClientDAO instance
-        //dao = new TCPMainClientDAO();
+        dao = new TCPMainClientDAO();
 //        dao = new UDPMainClientDAO();
 
         dao.start(new MainClientDAOListener() {

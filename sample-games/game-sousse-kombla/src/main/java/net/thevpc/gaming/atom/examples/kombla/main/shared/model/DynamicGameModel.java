@@ -9,11 +9,15 @@ import java.util.List;
  * Created by vpc on 10/7/16.
  */
 public class DynamicGameModel {
-    long frame; List<Sprite> sprites; java.util.List<Player> players;
+    long frame;
+    List<Sprite> sprites;
+    java.util.List<Player> players;
 
     public DynamicGameModel() {
-
+        this.sprites = new java.util.ArrayList<>();
+        this.players = new java.util.ArrayList<>();
     }
+
     public DynamicGameModel(long frame, List<Sprite> sprites, List<Player> players) {
         this.frame = frame;
         this.sprites = sprites;

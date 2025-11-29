@@ -25,6 +25,9 @@ import net.thevpc.gaming.atom.presentation.SceneKeyEvent;
 import net.thevpc.gaming.atom.presentation.components.SList;
 import net.thevpc.gaming.atom.presentation.components.STextField;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Default Controller for Welcome Scene.
  * This controller handles SPACE and ENTER key pressed to start the game.
@@ -73,16 +76,34 @@ public class WelcomeController extends DefaultSceneController {
                     case HOST_GAME: {
                         //store serverPort in global model to be accessible from engine later
                         AbstractMainEngine.getAppConfig(gameEngine).setServerPort(Integer.parseInt(serverPort.getText()));
+                        //bech nthabet
+                        System.out.println("=== STARTING SERVER on port: " + serverPort.getText() + " ===");
                         //activate the created scene
                         gameEngine.setActiveSceneEngine("mainServer");
+                        // CORRECTION: Message informatif
+                        System.out.println("Server started. Now you can start clients in JOIN mode.");
                         break;
                     }
                     case JOIN_GAME: {
                         //store serverAddress and serverPort in global model to be accessible from engine later
                         AbstractMainEngine.getAppConfig(gameEngine).setServerAddress(serverAddress.getText());
                         AbstractMainEngine.getAppConfig(gameEngine).setServerPort(Integer.parseInt(serverPort.getText()));
+                        //test
+                        String address = serverAddress.getText();
+                        int port = Integer.parseInt(serverPort.getText());
+
+                        System.out.println("=== ATTEMPTING TO CONNECT to " + address + ":" + port + " ===");
+
+                        // Attendre que le serveur soit prêt
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                System.out.println("Activating client scene...");
+                                gameEngine.setActiveSceneEngine("mainClient");
+                            }
+                        }, 3000);
                         //activate the created scene
-                        gameEngine.setActiveSceneEngine("mainClient");
+                        //gameEngine.setActiveSceneEngine("mainClient");
                         break;
                     }
                 }

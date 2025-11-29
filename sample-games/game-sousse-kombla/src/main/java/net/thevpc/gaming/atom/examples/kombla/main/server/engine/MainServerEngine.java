@@ -4,6 +4,7 @@
  */
 package net.thevpc.gaming.atom.examples.kombla.main.server.engine;
 
+import net.thevpc.gaming.atom.examples.kombla.main.server.dal.TCPMainServerDAO;
 import net.thevpc.gaming.atom.examples.kombla.main.shared.engine.BaseMainEngine;
 import net.thevpc.gaming.atom.examples.kombla.main.server.dal.MainServerDAOListener;
 import net.thevpc.gaming.atom.examples.kombla.main.shared.model.DynamicGameModel;
@@ -22,13 +23,17 @@ public class MainServerEngine extends BaseMainEngine {
 
     private MainServerDAO dal;
 
-
     @Override
     protected void sceneActivating() {
         super.sceneActivating();
-        //put here your MainClientDAO instance
-//        dal = new TCPMainServerDAO();
-//        dal = new UDPMainServerDAO();
+        if (dal == null) {
+            dal = new TCPMainServerDAO();
+            // dal = new RMIMainServiceDAO();
+        }
+        // put here your MainClientDAO instance
+        // dal = new TCPMainServerDAO();
+        // dal = new UDPMainServerDAO();
+
         dal.start(new MainServerDAOListener() {
             @Override
             public StartGameInfo onReceivePlayerJoined(String name) {
@@ -62,11 +67,10 @@ public class MainServerEngine extends BaseMainEngine {
             public void onReceiveReleaseBomb(int playerId) {
                 releaseBomb(playerId);
             }
+
         }, getAppConfig(getGameEngine()));
+
     }
-
-
-
 
     /**
      * each frame broadcast shared data to players. This method is called by
@@ -76,17 +80,16 @@ public class MainServerEngine extends BaseMainEngine {
     protected void modelUpdated() {
         switch ((String) getModel().getProperty("Phase")) {
             case "WAITING": {
-                //do nothing
+                // do nothing
                 break;
             }
             case "GAMING":
             case "GAMEOVER": {
-                //do nothing
+                // do nothing
                 dal.sendModelChanged(new DynamicGameModel(getFrame(),
-                        //copy to fix ObjectOutputStream issue!
-                        getSprites().stream().map(Sprite::copy).collect(Collectors.toList())
-                        , getPlayers().stream().map(Player::copy).collect(Collectors.toList())
-                ));
+                        // copy to fix ObjectOutputStream issue!
+                        getSprites().stream().map(Sprite::copy).collect(Collectors.toList()),
+                        getPlayers().stream().map(Player::copy).collect(Collectors.toList())));
                 break;
             }
         }
